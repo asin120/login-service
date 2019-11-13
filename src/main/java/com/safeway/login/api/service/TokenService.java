@@ -16,14 +16,14 @@ public class TokenService {
     private String baseURL;
 
 
-    public Mono<String> generateAccessToken(TranscationRequest transcationRequest) {
+  public Mono<TokenResponse> generateAccessToken(TranscationRequest transcationRequest) {
         return buildWebClient().post()
                 .uri(baseURL)
                 .body(Mono.just(transcationRequest), TranscationRequest.class)
                 .retrieve().onStatus(HttpStatus::is4xxClientError, clientResponse ->
                         Mono.error(new LoginException("Unable to login into portal"))
                 )
-                .bodyToMono(String.class);
+                .bodyToMono(TokenResponse.class);
 
     }
 
