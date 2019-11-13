@@ -16,7 +16,7 @@ public class WebTokenController {
     private TokenService tokenService;
 
     @PostMapping("/accessToken")
-    public Mono<String> getAccessToken(@RequestBody TranscationRequest request) {
+    public Mono<TokenResponse> getAccessToken(@RequestBody TranscationRequest request) {
         return tokenService.generateAccessToken(request);
     }
 }
